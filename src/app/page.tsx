@@ -3,9 +3,11 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+//API key for my currency converter app
 const API_KEY = "553d8c0042a1ac0ddd1855b4";
 const BASE_URL = `https://v6.exchangerate-api.com/v6/${API_KEY}`;
 
+// This is the state
 export default function Home() {
   const [state, setState] = useState({
     currencies: [] as string[],
@@ -15,6 +17,8 @@ export default function Home() {
     conversionResult: null as number | null,
   });
 
+  //Use effect to fetch the currencies to put on the Select button
+  //With the help of axios
   useEffect(() => {
     axios
       .get(`${BASE_URL}/latest/PHP`)
@@ -27,6 +31,7 @@ export default function Home() {
       .catch((err) => console.error("Error fetching currencies:", err));
   }, []);
 
+  //Arrow function that wil be trigger when the convert button is click
   const handleConvert = async () => {
     if (state.fromCurrency === state.toCurrency) {
       setState((prev) => ({ ...prev, conversionResult: state.amount }));
